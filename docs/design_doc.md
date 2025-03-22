@@ -1,99 +1,89 @@
 # Anonymous Discord Chat App Design Document
 
 ## Problem Statement
-Building a privacy-focused chat application integrated with Discord that enables DAOs to have public group conversations while maintaining individual anonymity. The application leverages Trusted Execution Environments (TEEs) for security and blockchain for transparency and logging.
+Build a privacy-focused chat application integrated with Discord that enables anonymous communication within DAOs. The application will protect user privacy through Trusted Execution Environments (TEEs) while maintaining transparency by logging conversations on the blockchain. This solution allows community members to freely express their thoughts without fear of attribution while ensuring accountability through blockchain records.
 
 ## Requirements
 
 ### Functional Requirements
 
 1. Discord Integration
-   - Discord bot with `!anonchat` command
-   - Integration with existing Discord channels
-   - Anonymous message relay system
+   - Single command interface using `!anonchat`
+   - Support for both existing channels and dedicated anonymous channels
+   - Messages after `!anonchat` command are automatically anonymized
+   - Privy-based authentication for users to join/leave chat sessions
 
 2. Anonymity Features
-   - Random username generation per message
-   - No connection between messages and original Discord users
-   - Public visibility within designated channels
+   - Username format: `AnonXXXXX` (5-digit random number)
+   - Username changes with every message
+   - No persistent connection between messages and Discord users
+   - Natural randomization through 5-digit space (100,000 possibilities)
 
-3. Security & Privacy
-   - TEE-based message processing using Nillion
-   - Blockchain logging using Privy
-   - Secure user session management
+3. Security & Privacy (TEE)
+   - Secure chat logs using Nillion's TEE
+   - Message content protection
+   - Access control through Privy authentication
+   - Secure storage of user mappings
 
-4. Message Handling
-   - Real-time message delivery
-   - Support for text messages
-   - Public chat history within channels
+4. Blockchain Integration
+   - Store chat logs on Ethereum Sepolia testnet
+   - Log both messages and metadata
+   - Accessible through Privy authentication
+   - Gas fees handled through Sepolia testnet ETH
 
 ### Non-Functional Requirements
 
 1. Performance
    - Message delivery latency < 1 second
-   - Smooth real-time chat experience
-   - Scalable to handle multiple active channels
+   - Real-time chat experience
+   - Efficient blockchain logging
 
 2. Security
-   - Zero-knowledge of user identity
+   - Zero-knowledge of user identity outside TEE
    - Tamper-proof message logging
-   - Secure API communication
+   - Secure authentication flow
 
-3. Reliability
-   - High availability during demo
-   - Graceful error handling
-   - Robust against Discord API issues
+3. Development Constraints
+   - Single-day development timeline
+   - MVP focus on core features
+   - Prioritize working functionality over feature completeness
 
-### Technical Constraints
+### Technical Stack
 
-1. Time Constraints
-   - MVP-focused development
+1. Frontend & Backend
+   - Next.js 14 with TypeScript
+   - React for UI components
+   - Discord.js for bot integration
 
-2. Technology Stack
-   - Next.js 14 + React + TypeScript
-   - Discord API integration
-   - Nillion for TEE
-   - Privy for blockchain logging
+2. Security & Privacy
+   - Nillion TEE for secure message processing
+   - Privy for authentication and blockchain integration
 
-3. Integration Dependencies
-   - Discord Bot API availability
-   - Nillion API/SDK access
-   - Privy API access
+3. Blockchain
+   - Ethereum Sepolia testnet
+   - Smart contracts for message logging
+   - Privy SDK for transaction management
 
-### Implementation Details
+### MVP Scope
 
-#### 1. Username Generation
-- Format: `AnonXXXX` (e.g., Anon1234)
-- New random name generated for every message
-- Generated and verified within TEE
+Phase 1: Basic Integration
+- Discord bot with `!anonchat` command
+- Anonymous message relay
+- Basic username generation
 
-#### 2. TEE Processing (Nillion)
-- Username generation and management
-- User-to-anonymous ID mapping
-- Message sanitization for privacy
-- Using SecretLLM API for secure processing
+Phase 2: Security Layer
+- TEE integration
+- Message encryption
+- Secure storage
 
-#### 3. Blockchain Logging (Privy)
-- Platform: Ethereum Sepolia Testnet
-- Logged Data:
-  - Message hashes
-  - Timestamps
-  - Channel IDs
-  - Anonymous message IDs
-- Using Privy for wallet management and transaction handling
+Phase 3: Blockchain
+- Message logging
+- Transaction handling
+- Access control
 
-#### 4. Discord Bot Commands
-User Commands:
-```
-!anonchat start  - Create new anonymous chat channel
-!anonchat join   - Join existing anonymous chat
-!anonchat status - Show channel statistics
-!anonchat help   - Show available commands
-```
-
-Admin Commands:
-```
-!anonchat config  - Configure channel settings
-!anonchat pause   - Temporarily pause anonymous chat
-!anonchat resume  - Resume anonymous chat
-```
+### Future Enhancements (Post-Hackathon)
+- Multiple anonymous channels
+- Advanced command system
+- Enhanced privacy features
+- Message threading
+- Reaction support
