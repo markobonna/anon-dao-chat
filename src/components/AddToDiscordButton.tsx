@@ -1,7 +1,8 @@
 import { Button } from '@/components/button'
 
 const DISCORD_CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
-const DISCORD_PERMISSIONS = '2048'; // Send Messages permission
+// Permissions: Send Messages (2048) + Manage Messages (8192) + View Channels (1024)
+const DISCORD_PERMISSIONS = '11264';
 const DISCORD_SCOPE = 'bot';
 
 export function AddToDiscordButton() {
