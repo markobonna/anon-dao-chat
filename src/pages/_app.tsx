@@ -4,7 +4,6 @@ import type { AppProps } from 'next/app'
 import { Navigation } from '@/components/Navigation'
 import '@/styles/tailwind.css'
 import { PrivyProvider } from '@privy-io/react-auth'
-
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
