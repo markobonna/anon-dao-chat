@@ -1,6 +1,7 @@
-import type { ReactNode } from 'react';
+import { usePrivy } from '@privy-io/react-auth';
 
 export function Navigation() {
+  const { login, ready, authenticated, user, logout } = usePrivy();
   return (
     <nav className="flex items-center space-x-4 p-4 bg-white border-b border-gray-200">
       <div className="flex items-center space-x-4">
@@ -18,6 +19,25 @@ export function Navigation() {
         </a>
       </div>
       <div className="flex-1" />
+      {authenticated ? (
+        <div className="flex items-center space-x-4">
+          <span className="text-gray-600">{user?.email || 'Anonymous User'}</span>
+          <button
+            onClick={logout}
+            className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+          >
+            Logout
+          </button>
+        </div>
+      ) : (
+        <button
+          onClick={login}
+          disabled={!ready}
+          className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors disabled:opacity-50"
+        >
+          Login
+        </button>
+      )}
       <a
         href="https://discord.com/oauth2/authorize?client_id=1353133400713859262"
         target="_blank"
