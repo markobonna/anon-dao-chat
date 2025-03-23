@@ -1,7 +1,9 @@
+import type { ReactElement } from 'react'
 import { Heading, Subheading } from '@/components/heading'
 import { AddToDiscordButton } from '@/components/AddToDiscordButton'
+import type { NextPageWithLayout } from './_app'
 
-export default function Home() {
+const Home: NextPageWithLayout = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <main className="py-20">
@@ -34,25 +36,7 @@ export default function Home() {
               <div className="rounded-lg bg-white p-6 shadow-sm">
                 <h3 className="text-lg font-semibold">3. Stay Anonymous</h3>
                 <p className="mt-2 text-gray-600">
-                  Each message gets a new random username, keeping your identity private.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-20">
-            <Subheading>Features</Subheading>
-            <div className="mt-8 grid gap-8 sm:grid-cols-2">
-              <div className="rounded-lg bg-white p-6 shadow-sm">
-                <h3 className="text-lg font-semibold">Secure Anonymity</h3>
-                <p className="mt-2 text-gray-600">
-                  Messages are processed in a Trusted Execution Environment (TEE) using Nillion.
-                </p>
-              </div>
-              <div className="rounded-lg bg-white p-6 shadow-sm">
-                <h3 className="text-lg font-semibold">Blockchain Logging</h3>
-                <p className="mt-2 text-gray-600">
-                  All messages are securely logged on the Ethereum Sepolia testnet via Privy.
+                  Your messages are processed in a secure TEE and logged on-chain for transparency.
                 </p>
               </div>
             </div>
@@ -62,3 +46,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home
